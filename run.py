@@ -2,9 +2,9 @@ import gspread
 from google.oauth2.service_account import Credentials
 
 SCOPE = [
-    "https://www.googleapis.com/auth/spreadsheets",
-    "https://www.googleapis.com/auth/drive.file",
-    "https://www.googleapis.com/auth/drive",
+  "https://www.googleapis.com/auth/spreadsheets",
+  "https://www.googleapis.com/auth/drive.file",
+  "https://www.googleapis.com/auth/drive",
 ]
 
 CREDS = Credentials.from_service_account_file("creds.json")
@@ -14,15 +14,29 @@ SHEET = GSPREAD_CLIENT.open("love_sandwiches")
 
 
 def get_sales_data():
-    """
-    Get sales figures input from the user
-    """
-    print("Please enter sales data from the last market.")
-    print("Data should be six numbers, separated by commas.")
-    print("Example: 12,34,55,36,22,23\n")
+  """
+  Get sales figures input from the user
+  """
+  print("Please enter sales data from the last market.")
+  print("Data should be six numbers, separated by commas.")
+  print("Example: 12,34,55,36,22,23\n")
 
-    data_str = input("Ente your data here: ")
-    print(f"The data provided is:  {data_str}")
+  data_str = input("Ente your data here: ")
+  
+  sales_data = data_str.split(',')
+  validate_data(sales_data) 
 
-
+def validate_data(values):
+  """
+  Inside the try, parses all strings as integers - Raises ValueError if strings
+  cannot be converted or if there aren't exactly 6 values
+  """
+  try:
+    if len(values) != 6:
+      raise ValueError(
+        f"Exactly 6 values required, you provided {len(values)}"
+      )
+  except ValueError as e:
+    print(f"Invalid data: {e}, please try again")
+    
 get_sales_data()
