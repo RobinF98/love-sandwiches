@@ -21,7 +21,7 @@ def get_sales_data():
   print("Data should be six numbers, separated by commas.")
   print("Example: 12,34,55,36,22,23\n")
 
-  data_str = input("Ente your data here: ")
+  data_str = input("Enter your data here: ")
   
   sales_data = data_str.split(',')
   validate_data(sales_data) 
@@ -32,6 +32,7 @@ def validate_data(values):
   cannot be converted or if there aren't exactly 6 values
   """
   try:
+    [int(value) for value in values]
     if len(values) != 6:
       raise ValueError(
         f"Exactly 6 values required, you provided {len(values)}"
